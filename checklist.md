@@ -55,6 +55,7 @@ ecommerce-api/
 ## 🔧 Installation Steps
 
 ### 1. Clone Repository
+
 - [ ] Repository cloned
 - [ ] Navigated to project directory
 
@@ -64,6 +65,7 @@ cd ecommerce-api
 ```
 
 ### 2. Create Virtual Environment
+
 - [ ] Virtual environment created
 - [ ] Virtual environment activated
 
@@ -80,6 +82,7 @@ source venv/bin/activate
 ### 3. Install Dependencies
 
 **Option A: Use existing requirements.txt**
+
 - [ ] All packages installed
 
 ```bash
@@ -87,6 +90,7 @@ pip install fastapi uvicorn sqlalchemy pymysql pyjwt passlib python-dotenv email
 ```
 
 **Option B: Use minimal requirements**
+
 - [ ] Minimal packages installed
 
 ```bash
@@ -94,6 +98,7 @@ pip install -r requirements-minimal.txt
 ```
 
 ### 4. Database Setup
+
 - [ ] MySQL server running
 - [ ] Database created
 - [ ] Tables created
@@ -110,6 +115,7 @@ USE ecommerce_db;
 ```
 
 **Verification:**
+
 ```sql
 USE ecommerce_db;
 SHOW TABLES;
@@ -117,12 +123,14 @@ SHOW TABLES;
 ```
 
 ### 5. Environment Configuration
+
 - [ ] `.env` file created
 - [ ] Database credentials configured
 - [ ] Secret keys generated
 - [ ] All variables set
 
 Create `.env` file:
+
 ```env
 DATABASE_URL=mysql+pymysql://root:YOUR_PASSWORD@localhost/ecommerce_db
 SECRET_KEY=your-generated-secret-key-here
@@ -131,6 +139,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES=60
 ```
 
 **Generate secure secret keys:**
+
 ```python
 import secrets
 print("SECRET_KEY:", secrets.token_urlsafe(32))
@@ -138,11 +147,13 @@ print("RESET_SECRET_KEY:", secrets.token_urlsafe(32))
 ```
 
 ### 6. Static Files Check
+
 - [ ] `static/` folder exists
 - [ ] All HTML files present
 - [ ] Files accessible
 
 Required files:
+
 - `static/index.html`
 - `static/status.html`
 - `static/incidents.html`
@@ -150,6 +161,7 @@ Required files:
 - `static/swagger.html`
 
 ### 7. Import Verification
+
 - [ ] All modules import correctly
 
 ```python
@@ -163,6 +175,7 @@ python -c "from routers import auth, product, admin; print('✓ Router imports O
 ## 🚀 First Run
 
 ### 8. Start Application
+
 - [ ] Application starts without errors
 - [ ] Database tables created automatically
 - [ ] Server listening on port 8000
@@ -172,6 +185,7 @@ uvicorn main:app --reload
 ```
 
 Expected output:
+
 ```
 INFO:     Uvicorn running on http://127.0.0.1:8000
 INFO:     Application startup complete.
@@ -180,6 +194,7 @@ Database tables created successfully!
 ```
 
 ### 9. Verify Endpoints
+
 - [ ] Root endpoint accessible (`http://127.0.0.1:8000/`)
 - [ ] Health check works (`http://127.0.0.1:8000/health`)
 - [ ] Documentation available (`http://127.0.0.1:8000/docs`)
@@ -191,6 +206,7 @@ curl http://127.0.0.1:8000/api
 ```
 
 ### 10. Test User Registration
+
 - [ ] Can register a user
 - [ ] User appears in database
 
@@ -206,6 +222,7 @@ curl -X POST "http://127.0.0.1:8000/auth/register" \
 ```
 
 ### 11. Test Authentication
+
 - [ ] Can login successfully
 - [ ] Receive JWT token
 - [ ] Token works for protected endpoints
@@ -222,6 +239,7 @@ curl -X POST "http://127.0.0.1:8000/auth/login" \
 ## 🧪 Run Test Suite
 
 ### 12. Execute Tests
+
 - [ ] All tests pass
 - [ ] No critical errors
 
@@ -234,6 +252,7 @@ Expected: All green checkmarks ✓
 ## 🔒 Security Check
 
 ### 13. Security Configuration
+
 - [ ] `.env` file in `.gitignore`
 - [ ] Strong secret keys set
 - [ ] Default passwords changed
@@ -241,6 +260,7 @@ Expected: All green checkmarks ✓
 - [ ] Database password is strong
 
 ### 14. Create `.gitignore`
+
 - [ ] `.gitignore` file created
 
 ```gitignore
@@ -276,6 +296,7 @@ Thumbs.db
 ## 📊 Monitoring Setup
 
 ### 15. Verify Monitoring Features
+
 - [ ] Status page working (`http://127.0.0.1:8000/status`)
 - [ ] Metrics updating (`http://127.0.0.1:8000/api/metrics`)
 - [ ] Incidents page accessible (`http://127.0.0.1:8000/incidents`)
@@ -283,6 +304,7 @@ Thumbs.db
 ## 📝 Documentation Check
 
 ### 16. Documentation Access
+
 - [ ] Swagger UI loads (`http://127.0.0.1:8000/docs-swagger`)
 - [ ] ReDoc loads (`http://127.0.0.1:8000/docs-redoc`)
 - [ ] OpenAPI JSON available (`http://127.0.0.1:8000/openapi.json`)
@@ -311,6 +333,7 @@ Run through this workflow:
 ### Common Issues
 
 **Database Connection Error:**
+
 ```bash
 # Check MySQL is running
 sudo systemctl status mysql    # Linux
@@ -321,12 +344,14 @@ mysql -u root -p -e "SELECT 1"
 ```
 
 **Import Errors:**
+
 ```bash
 # Reinstall packages
 pip install --upgrade --force-reinstall -r requirements-minimal.txt
 ```
 
 **Port Already in Use:**
+
 ```bash
 # Windows
 netstat -ano | findstr :8000
@@ -337,6 +362,7 @@ lsof -ti:8000 | xargs kill -9
 ```
 
 **Permission Denied:**
+
 ```bash
 # Add execute permission
 chmod +x main.py
@@ -347,6 +373,7 @@ chmod +x main.py
 If all items are checked, your E-Commerce API is ready for development!
 
 ### Next Steps:
+
 1. Read the API documentation
 2. Create your first products
 3. Test all endpoints
@@ -354,6 +381,7 @@ If all items are checked, your E-Commerce API is ready for development!
 5. Deploy to production (see README for deployment guide)
 
 ### Quick Reference:
+
 - **API Base URL:** http://127.0.0.1:8000
 - **Swagger Docs:** http://127.0.0.1:8000/docs-swagger
 - **Status Page:** http://127.0.0.1:8000/status

@@ -8,8 +8,9 @@ from fastapi.openapi.docs import get_redoc_html
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-# Import your actual project modules here
-# If you are just testing the UI, you can comment these out
+# Import database for initialization
+from database import Base, engine
+# Import routers
 from routers import auth, product, admin
 
 # --- Global Metrics Store (In-Memory) ---
@@ -29,13 +30,20 @@ async def lifespan(app: FastAPI):
     1. Initialize Database
     2. Ensure static folder exists
     """
-    # Base.metadata.create_all(bind=engine)  # Uncomment for real DB
+    # Create database tables if they don't exist
+    print("Creating database tables...")
+    Base.metadata.create_all(bind=engine)
+    print("Database tables created successfully!")
 
+    # Ensure static folder exists
     if not os.path.exists("static"):
         os.makedirs("static")
+        print("Static folder created")
 
     yield
+
     # Cleanup on shutdown
+    print("Shutting down...")
 
 
 app = FastAPI(
@@ -50,7 +58,7 @@ app = FastAPI(
 # CORS Configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # In production, specify exact origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -67,7 +75,7 @@ async def monitor_requests(request: Request, call_next):
     start_time = time.time()
 
     # 1. Record Active User (IP based)
-    client_ip = request.client.host
+    client_ip = request.client.host if request.client else "unknown"
     METRICS["active_ips"][client_ip] = start_time
 
     # Process the request
@@ -84,11 +92,18 @@ async def monitor_requests(request: Request, call_next):
     if response.status_code >= 500:
         METRICS["total_errors"] += 1
 
+    # Add response time header for debugging
+    response.headers["X-Process-Time"] = str(process_time)
+
     return response
 
 
 # Mount Static Files (CSS/JS/HTML)
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# Make sure the static folder exists with all HTML files
+if os.path.exists("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+else:
+    print("Warning: static folder not found. Some routes may not work.")
 
 # Include your Routers
 app.include_router(auth.router)
@@ -101,31 +116,43 @@ app.include_router(admin.router)
 @app.get("/", include_in_schema=False)
 def root():
     """Serves the Home Page"""
-    return FileResponse("static/index.html")
+    if os.path.exists("static/index.html"):
+        return FileResponse("static/index.html")
+    return {"message": "E-Commerce API is running", "docs": "/docs"}
 
 
 @app.get("/health")
 def health_check():
     """JSON Health Check"""
-    return {"status": "healthy"}
+    return {
+        "status": "healthy",
+        "service": "E-Commerce API",
+        "version": "1.0.0"
+    }
 
 
 @app.get("/status", include_in_schema=False)
 def status_page():
     """Serves the Status Dashboard"""
-    return FileResponse("static/status.html")
+    if os.path.exists("static/status.html"):
+        return FileResponse("static/status.html")
+    return {"message": "Status page not found", "metrics_api": "/api/metrics"}
 
 
 @app.get("/incidents", include_in_schema=False)
 def incidents_page():
     """Serves the Incident Management Page"""
-    return FileResponse("static/incidents.html")
+    if os.path.exists("static/incidents.html"):
+        return FileResponse("static/incidents.html")
+    return {"message": "Incidents page not found"}
 
 
 @app.get("/docs", include_in_schema=False)
 async def documentation_landing():
     """Serves the Documentation Selection Page"""
-    return FileResponse("static/docs-landing.html")
+    if os.path.exists("static/docs-landing.html"):
+        return FileResponse("static/docs-landing.html")
+    return {"swagger": "/docs-swagger", "redoc": "/docs-redoc"}
 
 
 # --- Documentation Logic ---
@@ -136,7 +163,9 @@ async def custom_swagger_ui_html():
     Serves the STATIC Swagger HTML file.
     This fixes the styling/layout issues by bypassing FastAPI's generator.
     """
-    return FileResponse("static/swagger.html")
+    if os.path.exists("static/swagger.html"):
+        return FileResponse("static/swagger.html")
+    return {"message": "Swagger UI not found", "openapi": "/openapi.json"}
 
 
 @app.get("/docs-redoc", include_in_schema=False)
@@ -186,4 +215,39 @@ def get_incidents_api():
     In this demo, the frontend uses LocalStorage, but this endpoint
     could be connected to a database later.
     """
-    return {"incidents": []}
+    return {"incidents": [], "message": "No incidents reported"}
+
+
+# --- Root API Info (for API clients) ---
+@app.get("/api")
+def api_info():
+    """API Information endpoint"""
+    return {
+        "name": "E-Commerce REST API",
+        "version": "1.0.0",
+        "documentation": {
+            "swagger": "/docs-swagger",
+            "redoc": "/docs-redoc",
+            "openapi": "/openapi.json"
+        },
+        "endpoints": {
+            "health": "/health",
+            "metrics": "/api/metrics",
+            "auth": "/auth/*",
+            "products": "/products/*",
+            "admin": "/admin/*"
+        }
+    }
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    # Run the application
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+        log_level="info"
+    )
