@@ -1,7 +1,8 @@
+import os
+
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-import os
-from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
@@ -29,6 +30,7 @@ SessionLocal = sessionmaker(
 )
 
 Base = declarative_base()
+
 
 # Dependency for route handlers
 def get_db():

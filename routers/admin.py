@@ -1,13 +1,14 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Query
-from sqlalchemy.orm import Session
 from typing import List
 
+from fastapi import APIRouter, Depends, HTTPException, status, Query
+from sqlalchemy.orm import Session
+
 from database import get_db
-from models.user import User
-from models.product import Product
-from schemas.user import UserOut
-from schemas.product import ProductOut
 from dependencies.roles import require_role
+from models.product import Product
+from models.user import User
+from schemas.product import ProductOut
+from schemas.user import UserOut
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
 

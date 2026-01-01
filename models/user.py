@@ -1,15 +1,18 @@
+import enum
+from datetime import datetime, timezone
+
 from sqlalchemy import Column, Integer, String, Enum as SQLEnum, DateTime
 from sqlalchemy.orm import relationship
-from datetime import datetime, timezone
-import enum
 
 from database import Base
+
 
 class UserRole(str, enum.Enum):
     """User role enumeration"""
     BUYER = "buyer"
     SELLER = "seller"
     ADMIN = "admin"
+
 
 class User(Base):
     __tablename__ = "users"
@@ -21,7 +24,8 @@ class User(Base):
     role = Column(SQLEnum(UserRole), nullable=False, default=UserRole.BUYER)
     is_active = Column(Integer, default=1)  # MySQL doesn't have native boolean
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc),
+                        onupdate=lambda: datetime.now(timezone.utc))
 
     # Relationship with products
     products = relationship("Product", back_populates="seller", cascade="all, delete-orphan")

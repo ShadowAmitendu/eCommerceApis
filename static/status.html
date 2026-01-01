@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Commerce API Status</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --bg-body: #f8fafc;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Unified Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), #818cf8);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: 0.2s;
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .nav-link:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Status Hero */
+        .status-banner {
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.3);
+        }
+
+        .status-banner.operational {
+            background: var(--success);
+        }
+
+        .status-banner.degraded {
+            background: var(--warning);
+            box-shadow: none;
+        }
+
+        .status-banner-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        /* Cards & Grid */
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .component {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            background: white;
+        }
+
+        .component.operational {
+            border-left: 4px solid var(--success);
+        }
+
+        .component-name {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Uptime Bar */
+        .uptime-bar-container {
+            display: flex;
+            gap: 4px;
+            height: 32px;
+            margin-top: 10px;
+        }
+
+        .uptime-day {
+            flex: 1;
+            background: var(--success);
+            border-radius: 2px;
+            opacity: 0.8;
+            transition: 0.2s;
+        }
+
+        .uptime-day:hover {
+            opacity: 1;
+            transform: scaleY(1.1);
+        }
+
+        /* Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .metric-card {
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="brand">
+            <div class="brand-icon"><i class="ri-pulse-line"></i></div>
+            Status
+        </div>
+
+        <div class="nav-links">
+            <a class="nav-link" href="/"><i class="ri-home-line"></i> Home</a>
+            <a class="nav-link" href="/docs"><i class="ri-book-open-line"></i> Docs</a>
+            <a class="nav-link active" href="/status"><i class="ri-pulse-line"></i> Status</a>
+            <a class="nav-link" href="/incidents"><i class="ri-alarm-warning-line"></i> Incidents</a>
+        </div>
+    </div>
+
+    <div class="status-banner operational" id="mainStatus">
+        <i class="ri-checkbox-circle-fill" style="font-size: 3rem;"></i>
+        <span class="status-banner-text">All Systems Operational</span>
+    </div>
+
+    <div class="card">
+        <h3 class="section-title">Service Status</h3>
+        <div class="component operational">
+            <div class="component-name"><i class="ri-plug-line"></i> API Server</div>
+            <div style="color:var(--success); font-weight:600;">Operational</div>
+        </div>
+        <div class="component operational">
+            <div class="component-name"><i class="ri-database-2-line"></i> Database</div>
+            <div style="color:var(--success); font-weight:600;">Operational</div>
+        </div>
+
+        <div style="margin-top:30px;">
+            <div style="display:flex; justify-content:space-between; font-size:0.9rem; font-weight:500; color:var(--text-muted);">
+                <span>90 Days Uptime</span>
+                <span style="color:var(--success); font-weight:700;">100%</span>
+            </div>
+            <div class="uptime-bar-container" id="uptimeBar"></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 class="section-title">Live System Metrics</h3>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value" id="responseTime">--</div>
+                <div class="metric-label">Avg Response (ms)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="requestCount">--</div>
+                <div class="metric-label">Total Requests</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="activeUsers">--</div>
+                <div class="metric-label">Active Users</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="errorRate">--</div>
+                <div class="metric-label">Error Rate (%)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. Generate Static Uptime Bar (No random mocks)
+    const bar = document.getElementById('uptimeBar');
+    for (let i = 0; i < 90; i++) {
+        const day = document.createElement('div');
+        day.className = 'uptime-day';
+        day.title = `Day ${i + 1}: 100% Uptime`;
+        bar.appendChild(day);
+    }
+
+    // 2. Fetch REAL metrics from Backend
+    async function fetchMetrics() {
+        try {
+            const response = await fetch('/api/metrics');
+            if (response.ok) {
+                const data = await response.json();
+
+                // Update DOM elements
+                document.getElementById('responseTime').textContent = data.avg_response_time;
+                document.getElementById('requestCount').textContent = data.request_count.toLocaleString();
+                document.getElementById('activeUsers').textContent = data.active_users;
+                document.getElementById('errorRate').textContent = data.error_rate;
+            }
+        } catch (e) {
+            console.error("Error fetching metrics:", e);
+        }
+    }
+
+    // Initial fetch and poll every 2 seconds
+    fetchMetrics();
+    setInterval(fetchMetrics, 2000);
+</script>
+</body>
+</html>

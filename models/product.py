@@ -1,8 +1,10 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Text
-from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Text
+from sqlalchemy.orm import relationship
+
 from database import Base
+
 
 class Product(Base):
     __tablename__ = "products"
@@ -15,7 +17,8 @@ class Product(Base):
     seller_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     is_active = Column(Integer, default=1)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc),
+                        onupdate=lambda: datetime.now(timezone.utc))
 
     # Relationship with user
     seller = relationship("User", back_populates="products")

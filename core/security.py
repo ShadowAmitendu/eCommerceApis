@@ -1,9 +1,10 @@
-from passlib.context import CryptContext
-from datetime import datetime, timedelta, timezone
-import jwt
 import os
+from datetime import datetime, timedelta, timezone
 from typing import Optional
+
+import jwt
 from dotenv import load_dotenv
+from passlib.context import CryptContext
 
 # Load environment variables from .env file
 load_dotenv()

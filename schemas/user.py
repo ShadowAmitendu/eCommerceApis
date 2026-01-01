@@ -1,5 +1,7 @@
-from pydantic import BaseModel, EmailStr, Field, field_validator
 from datetime import datetime
+
+from pydantic import BaseModel, EmailStr, Field, field_validator
+
 
 class UserRegister(BaseModel):
     name: str = Field(..., min_length=2, max_length=150)
@@ -20,12 +22,15 @@ class UserRegister(BaseModel):
             raise ValueError('Password must contain at least one digit')
         return v
 
+
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
+
 class ForgotPassword(BaseModel):
     email: EmailStr
+
 
 class ResetPassword(BaseModel):
     token: str
@@ -44,6 +49,7 @@ class ResetPassword(BaseModel):
             raise ValueError('Password must contain at least one digit')
         return v
 
+
 class UserOut(BaseModel):
     id: int
     name: str
@@ -55,12 +61,14 @@ class UserOut(BaseModel):
     class Config:
         from_attributes = True
 
+
 class UserResponse(BaseModel):
     id: int
     name: str
     email: EmailStr
     role: str
     message: str
+
 
 class TokenResponse(BaseModel):
     access_token: str

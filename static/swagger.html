@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Commerce REST API - Swagger UI</title>
+    <link href="https://fastapi.tiangolo.com/img/favicon.png" rel="shortcut icon">
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.9.0/swagger-ui.css" rel="stylesheet" type="text/css">
+
+    <style>
+        /* --- Global & Nav --- */
+        body {
+            margin: 0;
+            background: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+        }
+
+        .custom-nav {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .brand {
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand span {
+            background: #4f46e5;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            background: #f1f5f9;
+            color: #4f46e5;
+        }
+
+        .nav-link.active {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        /* --- Swagger Overrides --- */
+        .swagger-ui {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+        }
+
+        .swagger-ui .topbar {
+            display: none !important;
+        }
+
+        /* Hide default black bar */
+
+        /* Fonts */
+        .swagger-ui, .swagger-ui .info .title, .swagger-ui .btn {
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        .swagger-ui .opblock-summary-path, .swagger-ui .opblock-summary-method, textarea, input, .highlight-code {
+            font-family: 'Fira Code', monospace !important;
+            font-variant-ligatures: common-ligatures;
+        }
+
+        /* Cards */
+        .swagger-ui .opblock {
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            background: white;
+        }
+
+        .swagger-ui .opblock .opblock-summary {
+            background: transparent;
+            border-bottom: 1px solid transparent;
+        }
+
+        .swagger-ui .opblock.is-open .opblock-summary {
+            border-bottom-color: #e2e8f0;
+        }
+
+        /* Method Colors */
+        .swagger-ui .opblock.opblock-post .opblock-summary-method {
+            background: #f0fdf4 !important;
+            color: #16a34a !important;
+        }
+
+        .swagger-ui .opblock.opblock-post {
+            border-left: 4px solid #16a34a !important;
+        }
+
+        .swagger-ui .opblock.opblock-get .opblock-summary-method {
+            background: #eff6ff !important;
+            color: #2563eb !important;
+        }
+
+        .swagger-ui .opblock.opblock-get {
+            border-left: 4px solid #2563eb !important;
+        }
+
+        .swagger-ui .opblock.opblock-put .opblock-summary-method {
+            background: #fff7ed !important;
+            color: #ea580c !important;
+        }
+
+        .swagger-ui .opblock.opblock-put {
+            border-left: 4px solid #ea580c !important;
+        }
+
+        .swagger-ui .opblock.opblock-delete .opblock-summary-method {
+            background: #fef2f2 !important;
+            color: #dc2626 !important;
+        }
+
+        .swagger-ui .opblock.opblock-delete {
+            border-left: 4px solid #dc2626 !important;
+        }
+
+        /* Buttons & Inputs */
+        .swagger-ui .btn.execute {
+            background-color: #4f46e5 !important;
+            color: white !important;
+            width: 100%;
+            border-radius: 6px;
+            padding: 12px;
+            border: none;
+        }
+
+        .swagger-ui .btn.authorize {
+            color: #4f46e5 !important;
+            border-color: #4f46e5 !important;
+            background: transparent !important;
+        }
+
+        .swagger-ui .btn.authorize:hover {
+            background: #eef2ff !important;
+        }
+
+        .swagger-ui input, .swagger-ui textarea, .swagger-ui select {
+            border-radius: 6px !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+
+        /* Modal Fix */
+        .swagger-ui .dialog-ux .modal-ux {
+            border-radius: 12px !important;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .swagger-ui .auth-btn-wrapper .btn-done {
+            background-color: #4f46e5 !important;
+            color: white !important;
+            border: none;
+            font-weight: 600;
+        }
+
+        .swagger-ui .auth-btn-wrapper .btn-done:hover {
+            background-color: #4338ca !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="custom-nav">
+    <div class="brand"><span>API</span> Reference</div>
+    <div class="nav-links">
+        <a class="nav-link" href="/"><i class="ri-home-line"></i> Home</a>
+        <a class="nav-link active" href="/docs"><i class="ri-book-open-line"></i> Docs</a>
+        <a class="nav-link" href="/status"><i class="ri-pulse-line"></i> Status</a>
+        <a class="nav-link" href="/incidents"><i class="ri-alarm-warning-line"></i> Incidents</a>
+    </div>
+</div>
+
+<div id="swagger-ui"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.9.0/swagger-ui-bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.9.0/swagger-ui-standalone-preset.js"></script>
+<script>
+    window.onload = function () {
+        const ui = SwaggerUIBundle({
+            url: "/openapi.json",
+            dom_id: '#swagger-ui',
+            deepLinking: true,
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIStandalonePreset
+            ],
+            plugins: [
+                SwaggerUIBundle.plugins.DownloadUrl
+            ],
+            layout: "StandaloneLayout",
+            showExtensions: true,
+            showCommonExtensions: true,
+            tryItOutEnabled: true,
+            syntaxHighlight: {theme: 'monokai'}
+        });
+        window.ui = ui;
+    };
+</script>
+</body>
+</html>

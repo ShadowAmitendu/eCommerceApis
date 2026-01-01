@@ -1,4 +1,5 @@
 from fastapi import Depends, HTTPException, status
+
 from dependencies.auth import get_current_user
 
 

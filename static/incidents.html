@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Incident Management - E-Commerce API</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --bg-body: #f8fafc;
+            --warning-bg: #fffbeb;
+            --warning-text: #b45309;
+            --info-bg: #eff6ff;
+            --info-text: #1d4ed8;
+            --success-bg: #f0fdf4;
+            --success-text: #15803d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Unified Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), #818cf8);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: 0.2s;
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .nav-link:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Card System */
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            transition: 0.2s;
+            background: white;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        /* Incident List */
+        .incident-item {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #fff;
+            transition: 0.2s;
+        }
+
+        .incident-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .incident-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .incident-desc {
+            color: var(--text-muted);
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-investigating {
+            background: var(--warning-bg);
+            color: var(--warning-text);
+        }
+
+        .status-monitoring {
+            background: var(--info-bg);
+            color: var(--info-text);
+        }
+
+        .status-resolved {
+            background: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-style: italic;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px dashed var(--border);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="brand">
+            <div class="brand-icon"><i class="ri-alarm-warning-fill"></i></div>
+            Incidents
+        </div>
+
+        <div class="nav-links">
+            <a class="nav-link" href="/"><i class="ri-home-line"></i> Home</a>
+            <a class="nav-link" href="/docs"><i class="ri-book-open-line"></i> Docs</a>
+            <a class="nav-link" href="/status"><i class="ri-pulse-line"></i> Status</a>
+            <a class="nav-link active" href="/incidents"><i class="ri-alarm-warning-line"></i> Incidents</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title"><i class="ri-edit-box-line" style="vertical-align: middle; margin-right: 8px;"></i>
+                Report New Incident</h2>
+        </div>
+        <form id="incidentForm">
+            <div class="form-group">
+                <label for="title">Incident Title</label>
+                <input id="title" placeholder="e.g. High Latency on API Gateway" required type="text">
+            </div>
+            <div class="form-group">
+                <label for="message">Description</label>
+                <textarea id="message" placeholder="Describe the impact and affected services..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="status">Initial Status</label>
+                <select id="status">
+                    <option value="investigating">🔍 Investigating</option>
+                    <option value="monitoring">📊 Monitoring</option>
+                    <option value="resolved">✅ Resolved</option>
+                </select>
+            </div>
+            <button class="btn" type="submit">
+                <i class="ri-megaphone-line"></i> Publish Incident
+            </button>
+        </form>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title"><i class="ri-history-line" style="vertical-align: middle; margin-right: 8px;"></i>
+                Incident History</h2>
+        </div>
+        <div id="incidentsList">
+        </div>
+    </div>
+</div>
+
+<script>
+    // Use LocalStorage for simple persistence across reloads
+    let incidents = JSON.parse(localStorage.getItem('incidents')) || [];
+
+    function render() {
+        const list = document.getElementById('incidentsList');
+
+        if (incidents.length === 0) {
+            list.innerHTML = `
+                    <div class="empty-state">
+                        <i class="ri-file-list-3-line" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
+                        No incidents reported recently. System is healthy!
+                    </div>`;
+            return;
+        }
+
+        list.innerHTML = incidents.map(i => `
+                <div class="incident-item">
+                    <div class="incident-header">
+                        <span class="incident-title">${i.title}</span>
+                        <span class="status-badge status-${i.status}">${i.status}</span>
+                    </div>
+                    <div class="incident-desc">${i.message}</div>
+                    <div style="margin-top: 10px; font-size: 0.85rem; color: #94a3b8;">
+                        <i class="ri-time-line" style="vertical-align: middle"></i> ${new Date(i.timestamp).toLocaleString()}
+                    </div>
+                </div>
+            `).join('');
+    }
+
+    document.getElementById('incidentForm').onsubmit = (e) => {
+        e.preventDefault();
+
+        const newIncident = {
+            title: document.getElementById('title').value,
+            message: document.getElementById('message').value,
+            status: document.getElementById('status').value,
+            timestamp: new Date().toISOString()
+        };
+
+        // Add to top of list
+        incidents.unshift(newIncident);
+        localStorage.setItem('incidents', JSON.stringify(incidents));
+
+        render();
+        e.target.reset();
+    };
+
+    // Initial Render
+    render();
+</script>
+</body>
+</html>

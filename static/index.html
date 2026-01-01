@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>E-Commerce API - Home</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Palette */
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --bg-body: #f8fafc;
+            --success: #10b981;
+            --success-bg: #f0fdf4;
+            --warning: #f59e0b;
+            --warning-bg: #fffbeb;
+
+            /* Method Colors */
+            --get-bg: #eff6ff;
+            --get-text: #2563eb;
+            --post-bg: #f0fdf4;
+            --post-text: #16a34a;
+            --put-bg: #fff7ed;
+            --put-text: #ea580c;
+            --del-bg: #fef2f2;
+            --del-text: #dc2626;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: white;
+            padding: 80px 20px 60px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .logo-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), #818cf8);
+            border-radius: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+            color: white;
+            font-size: 2rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* --- Navigation Pills --- */
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            background: white;
+            border: 1px solid var(--border);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #eef2ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- Feature Grid (4 in a line) --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: left;
+            transition: transform 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .feature-icon {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            background: #eef2ff;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .feature-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .feature-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* --- Stats Strip --- */
+        .stats-strip {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 30px 0;
+        }
+
+        .stats-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        /* --- SPLIT LAYOUT --- */
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 800px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .split-col {
+            padding: 60px 40px;
+        }
+
+        /* Left: List */
+        .split-left {
+            background: #f8fafc;
+            border-right: 1px solid var(--border);
+        }
+
+        /* Right: Terminal */
+        .split-right {
+            background: #0f172a; /* Dark Slate Blue */
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
+
+        /* Specific spacing for the Right Column Header */
+        .split-right .section-desc {
+            color: #94a3b8; /* Lighter text for dark mode */
+            margin-bottom: 50px; /* Increased Padding as requested */
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 5px;
+        }
+
+        /* --- Endpoints Grid --- */
+        .endpoints-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .endpoint-card {
+            background: white;
+            border-radius: 10px;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .endpoint-card:hover {
+            border-color: #94a3b8;
+            box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.05);
+            transform: translateX(3px);
+        }
+
+        .endpoint-card.active {
+            border-left: 4px solid var(--primary);
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .endpoint-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .method-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 0;
+            border-radius: 4px;
+            text-transform: uppercase;
+            width: 50px;
+            text-align: center;
+        }
+
+        .method-get {
+            background: var(--get-bg);
+            color: var(--get-text);
+        }
+
+        .method-post {
+            background: var(--post-bg);
+            color: var(--post-text);
+        }
+
+        .method-put {
+            background: var(--put-bg);
+            color: var(--put-text);
+        }
+
+        .method-delete {
+            background: var(--del-bg);
+            color: var(--del-text);
+        }
+
+        .endpoint-path {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .endpoint-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* --- Code Window (Reverted to Window Style) --- */
+        .code-window {
+            background: #1e293b; /* Dark Indigo/Slate - The "Before" style */
+            border-radius: 12px;
+            border: 1px solid #334155;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 30px;
+        }
+
+        .window-header {
+            background: #0f172a;
+            padding: 12px 20px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #334155;
+            align-items: center;
+        }
+
+        .window-title {
+            margin-left: auto;
+            font-size: 0.8rem;
+            color: #64748b;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ef4444;
+        }
+
+        .dot-yellow {
+            background: #f59e0b;
+        }
+
+        .dot-green {
+            background: #10b981;
+        }
+
+        .code-content {
+            padding: 30px;
+            min-height: 350px;
+        }
+
+        .step-title {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        pre {
+            background: #020617;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            margin-bottom: 30px;
+            border: 1px solid #1e293b;
+            line-height: 1.7;
+        }
+
+        pre:last-child {
+            margin-bottom: 0;
+        }
+
+        .key {
+            color: #38bdf8;
+        }
+
+        .string {
+            color: #4ade80;
+        }
+
+        .comment {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        /* --- Status Section (Bottom) --- */
+        .section {
+            padding: 80px 20px;
+        }
+
+        .home-status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .status-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .status-icon-large {
+            font-size: 3rem;
+            color: var(--success);
+            margin-bottom: 10px;
+        }
+
+        .status-text-large {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .status-sub {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .incidents-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            height: 100%;
+        }
+
+        .incidents-header {
+            font-weight: 700;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .incident-row {
+            font-size: 0.9rem;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            display: inline-block;
+        }
+
+        .status-dot.warn {
+            background: var(--warning);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background: white;
+            border-top: 1px solid var(--border);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .split-section {
+                grid-template-columns: 1fr;
+            }
+
+            .split-right {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .split-right {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .home-status-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .split-col {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="logo-container"><i class="ri-shopping-bag-3-fill"></i></div>
+    <h1>E-Commerce API</h1>
+    <p class="subtitle">A secure, scalable RESTful interface for next-generation commerce applications. Built for
+        developers.</p>
+
+    <div class="nav-links">
+        <a class="nav-link" href="/"><i class="ri-home-line"></i> Home</a>
+        <a class="nav-link" href="/docs"><i class="ri-book-open-line"></i> Docs</a>
+        <a class="nav-link" href="/status"><i class="ri-pulse-line"></i> Status</a>
+        <a class="nav-link" href="/incidents"><i class="ri-alarm-warning-line"></i> Incidents</a>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="ri-shield-key-line"></i></div>
+            <div class="feature-title">JWT Auth</div>
+            <div class="feature-desc">Secure stateless authentication.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="ri-user-settings-line"></i></div>
+            <div class="feature-title">RBAC</div>
+            <div class="feature-desc">Permissions for Admin & Seller.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="ri-database-2-line"></i></div>
+            <div class="feature-title">CRUD Ready</div>
+            <div class="feature-desc">Optimized product management.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="ri-flashlight-line"></i></div>
+            <div class="feature-title">High Speed</div>
+            <div class="feature-desc">Powered by FastAPI (Async).</div>
+        </div>
+    </div>
+</div>
+
+<div class="stats-strip">
+    <div class="stats-container">
+        <div class="stat-item">
+            <div class="stat-value">99.9%</div>
+            <div class="stat-label">Uptime</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">&lt;50ms</div>
+            <div class="stat-label">Latency</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">18</div>
+            <div class="stat-label">Endpoints</div>
+        </div>
+    </div>
+</div>
+
+<div class="split-section">
+
+    <div class="split-col split-left">
+        <h2 class="section-title">API Reference</h2>
+        <p class="section-desc">Click an endpoint to view usage.</p>
+
+        <div class="section-label">Authentication</div>
+        <div class="endpoints-grid">
+            <div class="endpoint-card active" onclick="showCode('register')">
+                <div class="endpoint-top"><span class="method-badge method-post">POST</span><span class="endpoint-path">/auth/register</span>
+                </div>
+                <div class="endpoint-desc">Register new user</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('login')">
+                <div class="endpoint-top"><span class="method-badge method-post">POST</span><span class="endpoint-path">/auth/login</span>
+                </div>
+                <div class="endpoint-desc">Login & Get Token</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('forgot')">
+                <div class="endpoint-top"><span class="method-badge method-post">POST</span><span class="endpoint-path">/auth/forgot-password</span>
+                </div>
+                <div class="endpoint-desc">Request PW Reset</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('reset')">
+                <div class="endpoint-top"><span class="method-badge method-post">POST</span><span class="endpoint-path">/auth/reset-password</span>
+                </div>
+                <div class="endpoint-desc">Confirm PW Reset</div>
+            </div>
+        </div>
+
+        <div class="section-label">Products</div>
+        <div class="endpoints-grid">
+            <div class="endpoint-card" onclick="showCode('listProducts')">
+                <div class="endpoint-top"><span class="method-badge method-get">GET</span><span class="endpoint-path">/products/</span>
+                </div>
+                <div class="endpoint-desc">Get all products</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('createProduct')">
+                <div class="endpoint-top"><span class="method-badge method-post">POST</span><span class="endpoint-path">/products/</span>
+                </div>
+                <div class="endpoint-desc">Create product</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('getProduct')">
+                <div class="endpoint-top"><span class="method-badge method-get">GET</span><span class="endpoint-path">/products/{id}</span>
+                </div>
+                <div class="endpoint-desc">Get single product</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('updateProduct')">
+                <div class="endpoint-top"><span class="method-badge method-put">PUT</span><span class="endpoint-path">/products/{id}</span>
+                </div>
+                <div class="endpoint-desc">Update product</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('deleteProduct')">
+                <div class="endpoint-top"><span class="method-badge method-delete">DEL</span><span
+                        class="endpoint-path">/products/{id}</span></div>
+                <div class="endpoint-desc">Soft delete</div>
+            </div>
+        </div>
+
+        <div class="section-label">Admin</div>
+        <div class="endpoints-grid">
+            <div class="endpoint-card" onclick="showCode('adminUsers')">
+                <div class="endpoint-top"><span class="method-badge method-get">GET</span><span class="endpoint-path">/admin/users</span>
+                </div>
+                <div class="endpoint-desc">List all users</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('adminGetUser')">
+                <div class="endpoint-top"><span class="method-badge method-get">GET</span><span class="endpoint-path">/admin/users/{id}</span>
+                </div>
+                <div class="endpoint-desc">Get user details</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('adminActivate')">
+                <div class="endpoint-top"><span class="method-badge method-put">PUT</span><span class="endpoint-path">/admin/users/{id}/activate</span>
+                </div>
+                <div class="endpoint-desc">Activate User</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('adminDeactivate')">
+                <div class="endpoint-top"><span class="method-badge method-put">PUT</span><span class="endpoint-path">/admin/users/{id}/deactivate</span>
+                </div>
+                <div class="endpoint-desc">Deactivate User</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('adminAllProducts')">
+                <div class="endpoint-top"><span class="method-badge method-get">GET</span><span class="endpoint-path">/admin/products/all</span>
+                </div>
+                <div class="endpoint-desc">Admin List Products</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('adminHardDelete')">
+                <div class="endpoint-top"><span class="method-badge method-delete">DEL</span><span
+                        class="endpoint-path">/admin/products/{id}</span></div>
+                <div class="endpoint-desc">Hard Delete Product</div>
+            </div>
+        </div>
+
+        <div class="section-label">System</div>
+        <div class="endpoints-grid">
+            <div class="endpoint-card" onclick="showCode('health')">
+                <div class="endpoint-top"><span class="method-badge method-get">GET</span><span class="endpoint-path">/health</span>
+                </div>
+                <div class="endpoint-desc">Health Check</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('metrics')">
+                <div class="endpoint-top"><span class="method-badge method-get">GET</span><span class="endpoint-path">/api/metrics</span>
+                </div>
+                <div class="endpoint-desc">Live Metrics</div>
+            </div>
+            <div class="endpoint-card" onclick="showCode('incidents')">
+                <div class="endpoint-top"><span class="method-badge method-get">GET</span><span class="endpoint-path">/api/incidents</span>
+                </div>
+                <div class="endpoint-desc">System Incidents</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="split-col split-right">
+        <h2 class="section-title" id="quickStartTitle" style="color:white">Quick Start: Register</h2>
+        <p class="section-desc" id="quickStartDesc">Create a new account to get started.</p>
+
+        <div class="code-window">
+            <div class="window-header">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+                <div class="window-title">bash — curl</div>
+            </div>
+            <div class="code-content" id="codeContent">
+                <div class="step-title"><i class="ri-terminal-line"></i> Request</div>
+                <pre>POST /auth/register
+Content-Type: application/json
+
+{
+  <span class="key">"name"</span>: <span class="string">"John Doe"</span>,
+  <span class="key">"email"</span>: <span class="string">"john@example.com"</span>,
+  <span class="key">"password"</span>: <span class="string">"secret123"</span>,
+  <span class="key">"role"</span>: <span class="string">"buyer"</span>
+}</pre>
+                <div class="step-title"><i class="ri-arrow-right-line"></i> Response (201 Created)</div>
+                <pre>{
+  <span class="key">"id"</span>: <span class="string">1</span>,
+  <span class="key">"email"</span>: <span class="string">"john@example.com"</span>,
+  <span class="key">"is_active"</span>: <span class="string">true</span>
+}</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section" style="background:#f1f5f9;">
+    <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+            <h2 class="section-title">System Health</h2>
+            <p style="color:var(--text-muted)">Live status overview</p>
+        </div>
+
+        <div class="home-status-grid">
+            <div class="status-card" id="homeStatusCard">
+                <i class="ri-loader-4-line status-icon-large" style="animation: spin 1s linear infinite;"></i>
+                <div class="status-text-large">Checking Status...</div>
+            </div>
+            <div class="incidents-card">
+                <div class="incidents-header">
+                    <span>Recent Incidents</span>
+                    <a href="/incidents" style="text-decoration:none; color:var(--primary); font-size:0.85rem;">View All
+                        →</a>
+                </div>
+                <div id="homeIncidentsList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-links">
+        <a class="footer-link" href="/docs"><i class="ri-book-2-line"></i> Documentation</a>
+        <a class="footer-link" href="/status"><i class="ri-pulse-line"></i> Status</a>
+        <a class="footer-link" href="https://github.com/ShadowAmitendu/eCommerceApis" target="_blank"><i
+                class="ri-github-line"></i> GitHub</a>
+    </div>
+    <p style="color:#94a3b8; font-size:0.85rem">© 2024 E-Commerce API v1.0.0 • Built with FastAPI</p>
+</div>
+
+<script>
+    const snippets = {
+        // AUTH
+        register: {
+            title: "Register User", desc: "Create a new account.",
+            req: `POST /auth/register\n{\n  <span class="key">"email"</span>: <span class="string">"john@example.com"</span>,\n  <span class="key">"password"</span>: <span class="string">"secret"</span>\n}`,
+            res: `{\n  <span class="key">"id"</span>: <span class="string">1</span>,\n  <span class="key">"email"</span>: <span class="string">"john@example.com"</span>\n}`
+        },
+        login: {
+            title: "Login", desc: "Get JWT Token.",
+            req: `POST /auth/login\nusername=john@example.com&password=secret`,
+            res: `{\n  <span class="key">"access_token"</span>: <span class="string">"eyJhbGci..."</span>,\n  <span class="key">"token_type"</span>: <span class="string">"bearer"</span>\n}`
+        },
+        forgot: {
+            title: "Forgot Password", desc: "Trigger reset email.",
+            req: `POST /auth/forgot-password\n{\n  <span class="key">"email"</span>: <span class="string">"john@example.com"</span>\n}`,
+            res: `{\n  <span class="key">"message"</span>: <span class="string">"Email sent"</span>\n}`
+        },
+        reset: {
+            title: "Reset Password", desc: "Complete password reset.",
+            req: `POST /auth/reset-password\n{\n  <span class="key">"token"</span>: <span class="string">"reset_token"</span>,\n  <span class="key">"new_password"</span>: <span class="string">"newSecret"</span>\n}`,
+            res: `{\n  <span class="key">"message"</span>: <span class="string">"Password updated"</span>\n}`
+        },
+        // PRODUCTS
+        listProducts: {
+            title: "Get Products", desc: "Retrieve items.",
+            req: `GET /products/?skip=0&limit=10`,
+            res: `[\n  { <span class="key">"id"</span>: <span class="string">1</span>, <span class="key">"name"</span>: <span class="string">"Laptop"</span> }\n]`
+        },
+        createProduct: {
+            title: "Create Product", desc: "Add item (Seller).",
+            req: `POST /products/\nAuthorization: Bearer TOKEN\n{\n  <span class="key">"name"</span>: <span class="string">"Mouse"</span>,\n  <span class="key">"price"</span>: <span class="string">25.00</span>\n}`,
+            res: `{\n  <span class="key">"id"</span>: <span class="string">55</span>, <span class="key">"name"</span>: <span class="string">"Mouse"</span>\n}`
+        },
+        getProduct: {
+            title: "Get Product", desc: "Single item details.",
+            req: `GET /products/1`,
+            res: `{\n  <span class="key">"id"</span>: <span class="string">1</span>, <span class="key">"name"</span>: <span class="string">"Laptop"</span>\n}`
+        },
+        updateProduct: {
+            title: "Update Product", desc: "Modify item.",
+            req: `PUT /products/1\nAuthorization: Bearer TOKEN\n{\n  <span class="key">"price"</span>: <span class="string">899.99</span>\n}`,
+            res: `{\n  <span class="key">"id"</span>: <span class="string">1</span>, <span class="key">"price"</span>: <span class="string">899.99</span>\n}`
+        },
+        deleteProduct: {
+            title: "Delete Product", desc: "Soft delete item.",
+            req: `DELETE /products/1\nAuthorization: Bearer TOKEN`,
+            res: `(204 No Content)`
+        },
+        // ADMIN
+        adminUsers: {
+            title: "List Users", desc: "Admin view all users.",
+            req: `GET /admin/users\nAuthorization: Bearer ADMIN_TOKEN`,
+            res: `[\n  { <span class="key">"email"</span>: <span class="string">"user@api.com"</span> }\n]`
+        },
+        adminGetUser: {
+            title: "Get User", desc: "Admin view single user.",
+            req: `GET /admin/users/5\nAuthorization: Bearer ADMIN_TOKEN`,
+            res: `{\n  <span class="key">"id"</span>: <span class="string">5</span>, <span class="key">"role"</span>: <span class="string">"buyer"</span>\n}`
+        },
+        adminActivate: {
+            title: "Activate User", desc: "Enable account.",
+            req: `PUT /admin/users/5/activate\nAuthorization: Bearer ADMIN_TOKEN`,
+            res: `{\n  <span class="key">"status"</span>: <span class="string">"active"</span>\n}`
+        },
+        adminDeactivate: {
+            title: "Deactivate User", desc: "Disable account.",
+            req: `PUT /admin/users/5/deactivate\nAuthorization: Bearer ADMIN_TOKEN`,
+            res: `{\n  <span class="key">"status"</span>: <span class="string">"disabled"</span>\n}`
+        },
+        adminAllProducts: {
+            title: "All Products", desc: "Admin view including deleted.",
+            req: `GET /admin/products/all\nAuthorization: Bearer ADMIN_TOKEN`,
+            res: `[...]`
+        },
+        adminHardDelete: {
+            title: "Hard Delete", desc: "Permanently remove item.",
+            req: `DELETE /admin/products/1\nAuthorization: Bearer ADMIN_TOKEN`,
+            res: `(204 No Content)`
+        },
+        // SYSTEM
+        health: {
+            title: "Health Check", desc: "Monitor system status.",
+            req: `GET /health`,
+            res: `{\n  <span class="key">"status"</span>: <span class="string">"healthy"</span>\n}`
+        },
+        metrics: {
+            title: "Metrics", desc: "Live system stats.",
+            req: `GET /api/metrics`,
+            res: `{\n  <span class="key">"request_count"</span>: <span class="string">150</span>\n}`
+        },
+        incidents: {
+            title: "Incidents", desc: "Get reported issues.",
+            req: `GET /api/incidents`,
+            res: `[]`
+        }
+    };
+
+    function showCode(key) {
+        const data = snippets[key];
+        if (!data) return;
+
+        document.getElementById('quickStartTitle').innerText = data.title;
+        document.getElementById('quickStartDesc').innerText = data.desc;
+
+        const content = document.getElementById('codeContent');
+        content.innerHTML = `
+                <div class="step-title"><i class="ri-terminal-line"></i> Request</div>
+                <pre>${data.req}</pre>
+                <div class="step-title"><i class="ri-arrow-right-line"></i> Response</div>
+                <pre>${data.res}</pre>
+            `;
+
+        document.querySelectorAll('.endpoint-card').forEach(c => c.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+    }
+
+    async function fetchHomeStatus() {
+        const statusCard = document.getElementById('homeStatusCard');
+        try {
+            const response = await fetch('/api/metrics');
+            if (response.ok) {
+                statusCard.innerHTML = `
+                        <i class="ri-checkbox-circle-fill status-icon-large"></i>
+                        <div class="status-text-large">All Systems Operational</div>
+                        <div class="status-sub">API services are running normally.</div>
+                    `;
+            } else {
+                throw new Error();
+            }
+        } catch (e) {
+            statusCard.innerHTML = `
+                    <i class="ri-alert-fill status-icon-large" style="color:var(--warning)"></i>
+                    <div class="status-text-large">System Degraded</div>
+                    <div class="status-sub">Unable to reach API.</div>
+                `;
+        }
+    }
+
+    function loadHomeIncidents() {
+        const list = document.getElementById('homeIncidentsList');
+        const incidents = JSON.parse(localStorage.getItem('incidents')) || [];
+
+        if (incidents.length === 0) {
+            list.innerHTML = `<div style="color:#64748b; font-style:italic; padding:10px;">No incidents reported recently.</div>`;
+            return;
+        }
+
+        const recent = incidents.slice(0, 3);
+        list.innerHTML = recent.map(i => {
+            const colorClass = i.status === 'resolved' ? 'status-dot' : 'status-dot warn';
+            return `
+                    <div class="incident-row">
+                        <span class="${colorClass}"></span>
+                        <div style="flex:1">
+                            <div style="font-weight:600; font-size:0.9rem;">${i.title}</div>
+                            <div style="font-size:0.8rem; color:#64748b;">${i.status}</div>
+                        </div>
+                    </div>
+                `;
+        }).join('');
+    }
+
+    window.onload = function () {
+        fetchHomeStatus();
+        loadHomeIncidents();
+    };
+</script>
+<style> @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        } </style>
+</body>
+</html>
