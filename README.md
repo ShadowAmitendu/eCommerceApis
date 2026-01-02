@@ -23,7 +23,7 @@ A secure, scalable RESTful API for e-commerce applications built with FastAPI, f
 - **Database:** MySQL
 - **ORM:** SQLAlchemy
 - **Authentication:** JWT (PyJWT)
-- **Password Hashing:** Passlib with PBKDF2-SHA256
+- **Password Hashing:** passlib with PBKDF2-SHA256
 - **Database Driver:** PyMySQL
 
 ## Prerequisites
@@ -37,7 +37,7 @@ A secure, scalable RESTful API for e-commerce applications built with FastAPI, f
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/ecommerce-api.git
+git clone https://github.com/ShadowAmitendu/eCommerceApis
 cd ecommerce-api
 ```
 
@@ -188,40 +188,40 @@ curl -X GET "http://127.0.0.1:8000/products/" \
 
 ### Authentication
 
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | `/auth/register` | Register new user | No |
-| POST | `/auth/login` | Login and get JWT token | No |
-| POST | `/auth/forgot-password` | Request password reset | No |
-| POST | `/auth/reset-password` | Reset password with token | No |
+| Method | Endpoint                | Description               | Auth Required |
+|--------|-------------------------|---------------------------|---------------|
+| POST   | `/auth/register`        | Register new user         | No            |
+| POST   | `/auth/login`           | Login and get JWT token   | No            |
+| POST   | `/auth/forgot-password` | Request password reset    | No            |
+| POST   | `/auth/reset-password`  | Reset password with token | No            |
 
 ### Products
 
-| Method | Endpoint | Description | Auth Required | Role |
-|--------|----------|-------------|---------------|------|
-| GET | `/products/` | Get all products | No | - |
-| GET | `/products/{id}` | Get single product | No | - |
-| POST | `/products/` | Create product | Yes | Seller/Admin |
-| PUT | `/products/{id}` | Update product | Yes | Owner/Admin |
-| DELETE | `/products/{id}` | Soft delete product | Yes | Owner/Admin |
+| Method | Endpoint         | Description         | Auth Required | Role         |
+|--------|------------------|---------------------|---------------|--------------|
+| GET    | `/products/`     | Get all products    | No            | -            |
+| GET    | `/products/{id}` | Get single product  | No            | -            |
+| POST   | `/products/`     | Create product      | Yes           | Seller/Admin |
+| PUT    | `/products/{id}` | Update product      | Yes           | Owner/Admin  |
+| DELETE | `/products/{id}` | Soft delete product | Yes           | Owner/Admin  |
 
 ### Admin
 
-| Method | Endpoint | Description | Auth Required | Role |
-|--------|----------|-------------|---------------|------|
-| GET | `/admin/users` | Get all users | Yes | Admin |
-| GET | `/admin/users/{id}` | Get user by ID | Yes | Admin |
-| PUT | `/admin/users/{id}/activate` | Activate user | Yes | Admin |
-| PUT | `/admin/users/{id}/deactivate` | Deactivate user | Yes | Admin |
-| GET | `/admin/products/all` | Get all products | Yes | Admin |
-| DELETE | `/admin/products/{id}` | Hard delete product | Yes | Admin |
+| Method | Endpoint                       | Description         | Auth Required | Role  |
+|--------|--------------------------------|---------------------|---------------|-------|
+| GET    | `/admin/users`                 | Get all users       | Yes           | Admin |
+| GET    | `/admin/users/{id}`            | Get user by ID      | Yes           | Admin |
+| PUT    | `/admin/users/{id}/activate`   | Activate user       | Yes           | Admin |
+| PUT    | `/admin/users/{id}/deactivate` | Deactivate user     | Yes           | Admin |
+| GET    | `/admin/products/all`          | Get all products    | Yes           | Admin |
+| DELETE | `/admin/products/{id}`         | Hard delete product | Yes           | Admin |
 
 ### System
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/health` | Health check |
-| GET | `/api/metrics` | Real-time metrics |
+| Method | Endpoint       | Description       |
+|--------|----------------|-------------------|
+| GET    | `/health`      | Health check      |
+| GET    | `/api/metrics` | Real-time metrics |
 
 ## User Roles
 
