@@ -1,21 +1,22 @@
 # E-Commerce REST API
 
-A secure, scalable RESTful API for e-commerce applications built with FastAPI, featuring JWT authentication, role-based access control, and comprehensive product management.
+A secure, scalable RESTful API for e-commerce applications built with FastAPI, featuring JWT authentication, role-based
+access control, and comprehensive product management.
 
-![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python](https://img.shields.io/badge/python-3.13.+-blue.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.128.+-green.svg)
+![License](https://img.shields.io/badge/license-MIT-red.svg)
 
 ## Features
 
-- **🔐 JWT Authentication** - Secure stateless authentication
-- **👥 Role-Based Access Control (RBAC)** - Admin, Seller, and Buyer roles
-- **📦 Product Management** - Full CRUD operations with soft delete
-- **🔍 Search & Filter** - Advanced product search capabilities
-- **📊 Real-time Metrics** - Live system monitoring dashboard
-- **🚨 Incident Tracking** - Built-in incident management system
-- **📖 Interactive Documentation** - Swagger UI and ReDoc
-- **🔄 Password Reset** - Secure token-based password recovery
+- **JWT Authentication** - Secure stateless authentication
+- **Role-Based Access Control (RBAC)** - Admin, Seller, and Buyer roles
+- **Product Management** - Full CRUD operations with soft delete
+- **Search & Filter** - Advanced product search capabilities
+- **Real-time Metrics** - Live system monitoring dashboard
+- **Incident Logging & Tracking** - Built-in incident management system
+- **Interactive Documentation** - Swagger UI + Custom Static UI and ReDoc
+- **Password Reset** - Secure token-based password recovery
 
 ## Tech Stack
 
@@ -76,8 +77,10 @@ mysql -u root -p < database_setup.sql
 **Option B: Manual Setup**
 
 ```sql
-CREATE DATABASE ecommerce_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE ecommerce_db;
+CREATE
+DATABASE ecommerce_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE
+ecommerce_db;
 ```
 
 Then run the SQL file provided in the repository.
@@ -102,7 +105,8 @@ ACCESS_TOKEN_EXPIRE_MINUTES=60
 
 ### 6. Initialize Database Tables
 
-The application will automatically create tables on first run via the `lifespan` function. Alternatively, you can verify table creation:
+The application will automatically create tables on first run via the `lifespan` function. Alternatively, you can verify
+table creation:
 
 ```bash
 # Connect to MySQL
@@ -120,7 +124,8 @@ SHOW TABLES;
 You can also manually create tables using Python:
 
 ```python
-python -c "from database import engine, Base; from models import user, product; Base.metadata.create_all(bind=engine); print('Tables created!')"
+python - c
+"from database import engine, Base; from models import user, product; Base.metadata.create_all(bind=engine); print('Tables created!')"
 ```
 
 ### 7. Run the Application
@@ -165,6 +170,7 @@ curl -X POST "http://127.0.0.1:8000/auth/login" \
 ```
 
 Response:
+
 ```json
 {
   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -226,17 +232,20 @@ curl -X GET "http://127.0.0.1:8000/products/" \
 ## User Roles
 
 ### Buyer
+
 - View products
 - Search and filter products
 - View own profile
 
 ### Seller
+
 - All Buyer permissions
 - Create products
 - Update own products
 - Delete own products
 
 ### Admin
+
 - All Seller permissions
 - Manage all users
 - Manage all products
@@ -252,6 +261,7 @@ python tests.py
 ```
 
 The test suite covers:
+
 - User registration and authentication
 - Product CRUD operations
 - Role-based access control
@@ -331,6 +341,7 @@ RESET_SECRET_KEY=your-reset-secret-here
 
 ```python
 import secrets
+
 print(secrets.token_urlsafe(32))
 ```
 
@@ -338,17 +349,17 @@ print(secrets.token_urlsafe(32))
 
 ### Security Checklist
 
-- [ ] Change default secret keys
-- [ ] Use strong database passwords
-- [ ] Enable HTTPS/TLS
-- [ ] Set `echo=False` in database.py
-- [ ] Configure CORS properly
-- [ ] Set up rate limiting
-- [ ] Enable database backups
-- [ ] Use environment variables for all secrets
-- [ ] Remove debug endpoints
-- [ ] Implement logging
-- [ ] Set up monitoring
+1. [ ] Change default secret keys
+2. [ ] Use strong database passwords
+3. [ ] Enable HTTPS/TLS
+4. [ ] Set `echo=False` in database.py
+5. [ ] Configure CORS properly
+6. [ ] Set up rate limiting
+7. [ ] Enable database backups
+8. [ ] Use environment variables for all secrets
+9. [ ] Remove debug endpoints
+10. [ ] Implement logging
+11. [ ] Set up monitoring
 
 ### Environment Variables for Production
 
@@ -403,17 +414,18 @@ lsof -i :8000
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+> This doesn't 100% Guarantee your Idea will be Implemented!.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see
+the [LICENSE](https://github.com/ShadowAmitendu/eCommerceApis/blob/master/LICENSE) file for details.
 
 ## Support
 
 For issues and questions:
-- 📧 Email: support@yourapi.com
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/ecommerce-api/issues)
-- 📖 Docs: http://127.0.0.1:8000/docs
+
+- Issues: [Create a GitHub Issues Ticket!](https://github.com/ShadowAmitendu/eCommerceApis/issues)
 
 ## Acknowledgments
 
